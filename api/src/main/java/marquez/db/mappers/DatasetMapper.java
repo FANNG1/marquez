@@ -53,7 +53,7 @@ public final class DatasetMapper implements RowMapper<Dataset> {
       throws SQLException {
     DatasetType type = DatasetType.valueOf(stringOrThrow(results, Columns.TYPE));
 
-    if (type == DatasetType.DB_TABLE) {
+    if (type.isNotStream()) {
       return new DbTable(
           new DatasetId(
               NamespaceName.of(stringOrThrow(results, Columns.NAMESPACE_NAME)),
@@ -63,6 +63,7 @@ public final class DatasetMapper implements RowMapper<Dataset> {
           timestampOrThrow(results, Columns.CREATED_AT),
           timestampOrThrow(results, Columns.UPDATED_AT),
           SourceName.of(stringOrThrow(results, Columns.SOURCE_NAME)),
+          type,
           toFields(results, "fields"),
           toTags(results, "tags"),
           timestampOrNull(results, Columns.LAST_MODIFIED_AT),

@@ -438,7 +438,7 @@ public final class Utils {
 
       DatasetVersionData.DatasetVersionDataBuilder datasetMeta(DatasetMeta datasetMeta) {
         if (datasetMeta == null) return this;
-        return datasetMeta.getType().equals(DB_TABLE)
+        return datasetMeta.getType().isNotStream()
             ? dbTableMeta((DbTableMeta) datasetMeta)
             : streamMeta((StreamMeta) datasetMeta);
       }

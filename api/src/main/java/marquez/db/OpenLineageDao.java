@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.annotation.Nullable;
 import marquez.common.Utils;
+import marquez.common.gravitino.GravitinoUtils;
 import marquez.common.models.DatasetId;
 import marquez.common.models.DatasetName;
 import marquez.common.models.DatasetType;
@@ -1097,7 +1098,11 @@ public interface OpenLineageDao extends BaseDao {
   }
 
   default DatasetType getDatasetType(Dataset ds) {
-    return DatasetType.DB_TABLE;
+    try {
+      return GravitinoUtils.getDatasetType(ds);
+    } catch (Exception e) {
+      return DatasetType.DB_TABLE;
+    }
   }
 
   default RunState getRunState(String eventType) {

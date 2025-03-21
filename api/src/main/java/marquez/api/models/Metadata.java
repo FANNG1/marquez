@@ -27,6 +27,7 @@ import lombok.NonNull;
 import lombok.ToString;
 import marquez.api.exceptions.FacetNotValid;
 import marquez.common.Utils;
+import marquez.common.gravitino.GravitinoUtils;
 import marquez.common.models.DatasetId;
 import marquez.common.models.DatasetName;
 import marquez.common.models.DatasetType;
