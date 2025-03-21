@@ -43,7 +43,7 @@ public final class DatasetVersionMapper implements RowMapper<DatasetVersion> {
 
     DatasetType type = DatasetType.valueOf(stringOrThrow(results, Columns.TYPE));
     DatasetVersion datasetVersion;
-    if (type == DatasetType.DB_TABLE) {
+    if (type.isNotStream()) {
       datasetVersion =
           new DbTableVersion(
               new DatasetId(
@@ -54,6 +54,7 @@ public final class DatasetVersionMapper implements RowMapper<DatasetVersion> {
               timestampOrThrow(results, Columns.CREATED_AT),
               Version.of(uuidOrThrow(results, Columns.CURRENT_VERSION_UUID)),
               SourceName.of(stringOrThrow(results, Columns.SOURCE_NAME)),
+              type,
               toFields(results, "fields"),
               columnNames.contains("tags") ? toTags(results, "tags") : null,
               stringOrNull(results, Columns.DESCRIPTION),

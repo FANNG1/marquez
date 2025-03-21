@@ -170,6 +170,10 @@ if [[ "${NO_SEARCH}" = "true" ]]; then
   SEARCH_ENABLED="false"
 fi
 
+echo $compose_files
+echo $compose_args
+
+
 # Run docker compose cmd with overrides
 DOCKER_SCAN_SUGGEST="false" API_PORT=${API_PORT} API_ADMIN_PORT=${API_ADMIN_PORT} WEB_PORT=${WEB_PORT} POSTGRES_PORT=${DB_PORT} SEARCH_ENABLED=${SEARCH_ENABLED} SEARCH_PORT=${SEARCH_PORT} TAG=${TAG} \
   docker --log-level ERROR compose $compose_files up $compose_args
